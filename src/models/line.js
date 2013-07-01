@@ -20,6 +20,7 @@ nv.models.line = function() {
     , x //can be accessed via chart.xScale()
     , y //can be accessed via chart.yScale()
     , interpolate = "linear" // controls the line interpolation
+    , dotted = false
     ;
 
   scatter
@@ -173,6 +174,12 @@ nv.models.line = function() {
               .x(function(d,i) { return x0(getX(d,i)) })
               .y(function(d,i) { return y0(getY(d,i)) })
           );
+
+      if (dotted) {
+        console.log('dotted');
+        linePaths.style("stroke-dasharray", ("12, 3"));
+      }
+
       d3.transition(groups.exit().selectAll('path.nv-line'))
           .attr('d',
             d3.svg.line()
@@ -276,6 +283,12 @@ nv.models.line = function() {
     isArea = d3.functor(_);
     return chart;
   };
+
+  chart.dotted = function(_) {
+    if (!arguments.length) return dotted;
+    dotted = _;
+    return chart;
+  }
 
   //============================================================
 
