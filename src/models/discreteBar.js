@@ -181,7 +181,7 @@ nv.models.discreteBar = function() {
           .attr('text-anchor', 'middle')
         bars.select('text')
           .attr('x', x.rangeBand() * .9 / 2)
-          .attr('y', function(d,i) { return getY(d,i) < 0 ? y(getY(d,i)) - y(0) + 12 : -4 })
+          .attr('y', function(d,i) { return getY(d,i) < 0 ? y(getY(d,i)) - y(0) + 22 : -8 })
           .text(function(d,i) { return valueFormat(getY(d,i)) });
       } else {
         bars.selectAll('text').remove();
