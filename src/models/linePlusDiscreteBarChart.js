@@ -33,6 +33,8 @@ nv.models.linePlusDiscreteBarChart = function() {
     , noData = "No Data Available."
     , dispatch = d3.dispatch('tooltipShow', 'tooltipHide', 'stateChange', 'changeState')
     , showTopLegend = false
+    , showXaxis = true
+    , showYaxis = true
     ;
 
   lines
@@ -235,6 +237,11 @@ nv.models.linePlusDiscreteBarChart = function() {
       d3.transition(g.select('.nv-x.nv-axis'))
           .call(xAxis);
 
+      if(!showXaxis) {
+        g.select('.nv-x.nv-axis g').selectAll('line')
+          .style('opacity', 0);
+      }
+
       y1Axis
         .scale(y1)
         .ticks( availableHeight / 36 )
@@ -253,6 +260,11 @@ nv.models.linePlusDiscreteBarChart = function() {
       d3.transition(g.select('.nv-y1.nv-axis'))
           .style('opacity', dataBars.length ? 1 : 0)
           .call(y1Axis);
+
+      if(!showYaxis) {
+        g.select('.nv-y1.nv-axis g').selectAll('line')
+          .style('opacity', 0);
+      }
 
       y2Axis
         .scale(y2)
@@ -276,6 +288,11 @@ nv.models.linePlusDiscreteBarChart = function() {
 
       d3.transition(g.select('.nv-y2.nv-axis'))
           .call(y2Axis);
+
+      if (!showYaxis) {
+        g.select('.nv-y2.nv-axis g').selectAll('line')
+          .style('opacity', 0);
+      }
 
       //------------------------------------------------------------
 
@@ -471,6 +488,18 @@ nv.models.linePlusDiscreteBarChart = function() {
   chart.showTopLegend = function(_) {
     if (!arguments.length) return showTopLegend;
     showTopLegend = _;
+    return chart;
+  }
+
+  chart.showXaxis = function(_) {
+    if (!arguments.length) return showXaxis;
+    showXaxis = _;
+    return chart;
+  }
+
+  chart.showYaxis = function(_) {
+    if (!arguments.length) return showYaxis;
+    showYaxis = _;
     return chart;
   }
 

@@ -65,8 +65,9 @@ nv.addGraph(function() {
     chart = nv.models.linePlusDiscreteBarChart()
         .margin({top: 30, right: 60, bottom: 200, left: 70})
         .x(function(d,i) { return i })
-        .color(d3.scale.category10().range())
+        .color(['#10BCC8', '#999'])
         .showTopLegend(true)
+        .showXaxis(false)
         .showLegend(false);
 
     chart.xAxis.tickFormat(function(d) {
@@ -81,16 +82,15 @@ nv.addGraph(function() {
             if(d > 0) {
               d = d.toString().slice(0, -3);  
             }
-            return d + 'k'; 
+            return d + 'K'; 
           });
 
     chart.y2Axis
         .tickFormat(function(d) { return d3.format(',')(d) });
         
-    chart.bars.forceY([0]);
-    chart.bars.showValues(true);
+    chart.bars.forceY([0]).showValues(true);
     chart.lines.dotted(true);
-
+    
     d3.select('#chart1 svg')
         .datum(testdata)
       .transition().duration(500).call(chart);
