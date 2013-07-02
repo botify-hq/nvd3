@@ -19,6 +19,7 @@ nv.models.axis = function() {
     , staggerLabels = false
     , isOrdinal = false
     , ticks = null
+    , showDomains = false
     ;
 
   axis
@@ -245,6 +246,10 @@ nv.models.axis = function() {
       axisLabel
           .text(function(d) { return d });
 
+      if (!showDomains) {
+        d3.selectAll('.domain')
+          .style('display', 'none');
+      }
 
       if (showMaxMin && (axis.orient() === 'left' || axis.orient() === 'right')) {
         //check if max and min overlap other values, if so, hide the values that overlap
@@ -391,6 +396,17 @@ nv.models.axis = function() {
     return chart;
   };
 
+  chart.isOrdinal = function(_) {
+    if (!arguments.length) return isOrdinal;
+    isOrdinal = _;
+    return chart;
+  };
+
+  chart.showDomains = function(_) {
+    if (!arguments.length) return showDomains;
+    showDomains = _;
+    return chart;
+  };
 
   //============================================================
 
