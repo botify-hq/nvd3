@@ -32,6 +32,7 @@ nv.models.linePlusDiscreteBarChart = function() {
     , defaultState = null
     , noData = "No Data Available."
     , dispatch = d3.dispatch('tooltipShow', 'tooltipHide', 'stateChange', 'changeState')
+    , showValues = false
     ;
 
   lines
@@ -230,16 +231,24 @@ nv.models.linePlusDiscreteBarChart = function() {
       d3.transition(g.select('.nv-x.nv-axis'))
           .call(xAxis);
 
-
       y1Axis
         .scale(y1)
         .ticks( availableHeight / 36 )
         .tickSize(-availableWidth, 0);
 
+      if (showValues) {
+        g.select('.nv-y1.nv-axis')
+          .append('text')
+            .attr('y', -20)
+            .attr('x', 0)
+            .attr('dy', '.20em')
+            .style('text-anchor', 'end')
+            .text('coucou');
+      }
+      
       d3.transition(g.select('.nv-y1.nv-axis'))
           .style('opacity', dataBars.length ? 1 : 0)
           .call(y1Axis);
-
 
       y2Axis
         .scale(y2)
@@ -250,6 +259,16 @@ nv.models.linePlusDiscreteBarChart = function() {
           .style('opacity', dataLines.length ? 1 : 0)
           .attr('transform', 'translate(' + availableWidth + ',0)');
           //.attr('transform', 'translate(' + x.range()[1] + ',0)');
+
+      if (showValues) {
+        g.select('.nv-y2.nv-axis')
+          .append('text')
+            .attr('y', -20)
+            .attr('x', 0)
+            .attr('dy', '.20em')
+            .style('text-anchor', 'begin')
+            .text('coucou2');
+      }
 
       d3.transition(g.select('.nv-y2.nv-axis'))
           .call(y2Axis);
@@ -445,8 +464,14 @@ nv.models.linePlusDiscreteBarChart = function() {
     return chart;
   };
 
+  chart.showValues = function(_) {
+    if (!arguments.length) return showValues;
+    showValues = _;
+    return chart;
+  }
+
   //============================================================
 
-
   return chart;
+
 }
