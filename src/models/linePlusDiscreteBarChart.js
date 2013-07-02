@@ -51,9 +51,11 @@ nv.models.linePlusDiscreteBarChart = function() {
     ;
   y1Axis
     .orient('left')
+    .showMaxMin(false)
     ;
   y2Axis
     .orient('right')
+    .showMaxMin(false)
     ;
 
   //============================================================
