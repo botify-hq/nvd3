@@ -20,7 +20,7 @@ nv.models.line = function() {
     , x //can be accessed via chart.xScale()
     , y //can be accessed via chart.yScale()
     , interpolate = "linear" // controls the line interpolation
-    , dotted = false
+    , dotted = false // if true, draw a dotted line
     ;
 
   scatter
@@ -76,8 +76,6 @@ nv.models.line = function() {
       //------------------------------------------------------------
 
 
-
-
       scatter
         .width(availableWidth)
         .height(availableHeight)
@@ -88,11 +86,10 @@ nv.models.line = function() {
       d3.transition(scatterWrap).call(scatter);
 
 
-
       defsEnter.append('clipPath')
           .attr('id', 'nv-edge-clip-' + scatter.id())
         .append('rect');
-
+        
       wrap.select('#nv-edge-clip-' + scatter.id() + ' rect')
           .attr('width', availableWidth)
           .attr('height', availableHeight);
@@ -100,9 +97,7 @@ nv.models.line = function() {
       g   .attr('clip-path', clipEdge ? 'url(#nv-edge-clip-' + scatter.id() + ')' : '');
       scatterWrap
           .attr('clip-path', clipEdge ? 'url(#nv-edge-clip-' + scatter.id() + ')' : '');
-
-
-
+      
 
       var groups = wrap.select('.nv-groups').selectAll('.nv-group')
           .data(function(d) { return d }, function(d) { return d.key });
@@ -176,7 +171,6 @@ nv.models.line = function() {
           );
 
       if (dotted) {
-        console.log('dotted');
         linePaths.style("stroke-dasharray", ("12, 3"));
       }
 
