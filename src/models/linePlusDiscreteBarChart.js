@@ -33,6 +33,7 @@ nv.models.linePlusDiscreteBarChart = function() {
     , noData = "No Data Available."
     , dispatch = d3.dispatch('tooltipShow', 'tooltipHide', 'stateChange', 'changeState')
     , showValues = false
+    , xRotate = true
     ;
 
   lines
@@ -228,8 +229,14 @@ nv.models.linePlusDiscreteBarChart = function() {
 
       g.select('.nv-x.nv-axis')
           .attr('transform', 'translate(0,' + y1.range()[0] + ')');
+
       d3.transition(g.select('.nv-x.nv-axis'))
           .call(xAxis);
+
+      if (xRotate) {
+        g.select('.nv-x.nv-axis')
+          .attr('class', 'nv-x.nv-axis rotate');
+      }
 
       y1Axis
         .scale(y1)
@@ -467,6 +474,12 @@ nv.models.linePlusDiscreteBarChart = function() {
   chart.showValues = function(_) {
     if (!arguments.length) return showValues;
     showValues = _;
+    return chart;
+  }
+
+  chart.xRotate = function(_) {
+    if (!arguments.length) return xRotate;
+    xRotate = _;
     return chart;
   }
 
