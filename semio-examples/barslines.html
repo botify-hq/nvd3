@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<link href="../src/nv.d3.css" rel="stylesheet" type="text/css">
+
+<style>
+
+body {
+  overflow-y:scroll;
+}
+
+text {
+  font: 12px sans-serif;
+}
+
+#chart1 svg {
+  height: 500px;
+  margin: 10px;
+  min-width: 100px;
+  min-height: 100px;
+/*
+  Minimum height and width is a good idea to prevent negative SVG dimensions...
+  For example width should be =< margin.left + margin.right + 1,
+  of course 1 pixel for the entire chart would not be very useful, BUT should not have errors
+*/
+}
+
+</style>
+<body>
+
+  <div id="chart1">
+    <svg> </svg>
+  </div>
+
+<script src="../lib/d3.v3.js"></script>
+<script src="../nv.d3.js"></script>
+<script src="../src/utils.js"></script>
+<script src="../src/tooltip.js"></script>
+<script src="../src/models/legend.js"></script>
+<script src="../src/models/axis.js"></script>
+<script src="../src/models/scatter.js"></script>
+<script src="../src/models/line.js"></script>
+<script src="../src/models/discreteBar.js"></script>
+<script src="../src/models/linePlusDiscreteBarChart.js"></script>
+<script>
+
+var testdata = [
+  {
+    "key" : "Crawled pages" ,
+    "bar": true,
+    "values" : [ [ 'dossiers' , 15000 ] , [ 'recettes_index' , 45100 ] , [ '(others)' , 54900 ] , [ 'dossiers' , 64200 ], [ 'minceur' , 24700 ], [ 'beauté' , 8200 ] ]
+  },
+  {
+    "key" : "Average delay (ms)" ,
+    "values" : [ [ 'dossiers' , 200 ] , [ 'recettes_index' , 400 ] , [ '(others)' , 250 ] , [ 'dossiers' , 400 ], [ 'minceur' , 150 ], [ 'beauté' , 380 ] ]
+  }
+].map(function(series) {
+  series.values = series.values.map(function(d) { return {x: d[0], y: d[1] } });
+  return series;
+});
+
+var chart;
+
+nv.addGraph(function() {
+    chart = nv.models.linePlusDiscreteBarChart()
+        .margin({top: 30, right: 60, bottom: 50, left: 70})
+        .x(function(d,i) { return i })
+        .color(d3.scale.category10().range())
+        .showValues(true)
+        .showLegend(false);
+
+    chart.xAxis.tickFormat(function(d) {
+      var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
+      return dx ? d3.time.format('%x')(new Date(dx)) : '';
+      })
+      .showMaxMin(false);
+
+    chart.y1Axis
+        .tickFormat(d3.format(',f'));
+
+    chart.y2Axis
+        .tickFormat(function(d) { return d3.format(',')(d) });
+        
+    chart.bars.forceY([0]);
+    chart.bars.showValues(true);
+    chart.lines.dotted(true);
+
+    d3.select('#chart1 svg')
+        .datum(testdata)
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+    return chart;
+});
+
+</script>
