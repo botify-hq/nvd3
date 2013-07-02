@@ -14,7 +14,7 @@ text {
 }
 
 #chart1 svg {
-  height: 500px;
+  height: 700px;
   margin: 10px;
   min-width: 100px;
   min-height: 100px;
@@ -63,7 +63,7 @@ var chart;
 
 nv.addGraph(function() {
     chart = nv.models.linePlusDiscreteBarChart()
-        .margin({top: 30, right: 60, bottom: 50, left: 70})
+        .margin({top: 30, right: 60, bottom: 200, left: 70})
         .x(function(d,i) { return i })
         .color(d3.scale.category10().range())
         .showTopLegend(true)

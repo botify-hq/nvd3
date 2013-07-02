@@ -44,6 +44,7 @@ nv.models.linePlusDiscreteBarChart = function() {
     .tickPadding(7)
     .highlightZero(false)
     .rotateLabels(-50)
+    .showMaxMin(false)
     ;
   y1Axis
     .orient('left')
