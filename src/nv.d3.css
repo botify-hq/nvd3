@@ -196,12 +196,6 @@ svg .title {
   text-anchor: middle
 }
 
-.nvd3 .rotate text {
-  -moz-transform:rotate(-50deg) translate(-5px, -2px);
-  -webkit-transform:rotate(-50deg) translate(-5px, -2px);
-  -o-transform:rotate(-50deg) translate(-5px, -2px);
-  text-anchor: end !important;
-}
 
 
 /**********

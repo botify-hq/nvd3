@@ -32,8 +32,7 @@ nv.models.linePlusDiscreteBarChart = function() {
     , defaultState = null
     , noData = "No Data Available."
     , dispatch = d3.dispatch('tooltipShow', 'tooltipHide', 'stateChange', 'changeState')
-    , showValues = false
-    , xRotate = true
+    , showTopLegend = false
     ;
 
   lines
@@ -44,6 +43,7 @@ nv.models.linePlusDiscreteBarChart = function() {
     .orient('bottom')
     .tickPadding(7)
     .highlightZero(false)
+    .rotateLabels(-50)
     ;
   y1Axis
     .orient('left')
@@ -233,17 +233,12 @@ nv.models.linePlusDiscreteBarChart = function() {
       d3.transition(g.select('.nv-x.nv-axis'))
           .call(xAxis);
 
-      if (xRotate) {
-        g.select('.nv-x.nv-axis')
-          .attr('class', 'nv-x.nv-axis rotate');
-      }
-
       y1Axis
         .scale(y1)
         .ticks( availableHeight / 36 )
         .tickSize(-availableWidth, 0);
 
-      if (showValues) {
+      if (showTopLegend) {
         g.select('.nv-y1.nv-axis')
           .append('text')
             .attr('y', -20)
@@ -267,7 +262,7 @@ nv.models.linePlusDiscreteBarChart = function() {
           .attr('transform', 'translate(' + availableWidth + ',0)');
           //.attr('transform', 'translate(' + x.range()[1] + ',0)');
 
-      if (showValues) {
+      if (showTopLegend) {
         g.select('.nv-y2.nv-axis')
           .append('text')
             .attr('y', -20)
@@ -471,15 +466,9 @@ nv.models.linePlusDiscreteBarChart = function() {
     return chart;
   };
 
-  chart.showValues = function(_) {
-    if (!arguments.length) return showValues;
-    showValues = _;
-    return chart;
-  }
-
-  chart.xRotate = function(_) {
-    if (!arguments.length) return xRotate;
-    xRotate = _;
+  chart.showTopLegend = function(_) {
+    if (!arguments.length) return showTopLegend;
+    showTopLegend = _;
     return chart;
   }
 
