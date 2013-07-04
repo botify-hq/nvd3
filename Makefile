@@ -19,6 +19,7 @@ JS_FILES = \
 	src/models/linePlusBarChart.js \
 	src/models/lineWithFocusChart.js \
 	src/models/linePlusBarWithFocusChart.js \
+	src/models/linePlusDiscreteBarChart.js \
 	src/models/multiBar.js \
 	src/models/multiBarChart.js \
 	src/models/multiBarHorizontal.js \
@@ -53,5 +54,3 @@ nv.d3.js: Makefile
 
 clean:
 	rm -rf nv.d3.js nv.d3.min.js
-
-
