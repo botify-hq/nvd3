@@ -1,0 +1,9 @@
+{
+  "name"        : "nvd3-botify",
+  "description" : "A reusable chart library for d3.JS.",
+  "version"     : "1.0.1beta",
+  "main"        : "./nv.d3.js",
+  "dependencies": {
+  	"d3": "~3.2"
+  }
+}
